@@ -30,8 +30,8 @@ Describe "Enterprise Service Audit Tool - Pester v5 Suite" {
                 throw "RPC Server Unavailable" 
             } -ParameterFilter { $ComputerName -eq 'SERVER-DOWN' }
 
-            Mock Get-CimInstance { 
-                return $null # Zero matching services
+            Mock Get-CimInstance {
+                # Intentionally emit no objects
             } -ParameterFilter { $ComputerName -eq 'SERVER-OK2' }
 
             # Act

@@ -17,22 +17,26 @@ function Get-StoppedAutomaticService {
 
             try {
                 if ($computer -eq 'localhost' -eq $true -or $computer -eq '.' -or $computer -eq $env:COMPUTERNAME) {
-                    $services = Get-CimInstance -ClassName Win32_Service `
-                                                -Filter "StartMode='Auto' AND State='Stopped'" `
-                                                -ErrorAction Stop
+                    $services = @(
+                        Get-CimInstance -ClassName Win32_Service `
+                            -Filter "StartMode='Auto' AND State='Stopped'" `
+                            -ErrorAction Stop
+                    )
                 }
                 else {
-                    $services = Get-CimInstance -ClassName Win32_Service `
-                                                -ComputerName $computer `
-                                                -Filter "StartMode='Auto' AND State='Stopped'" `
-                                                -ErrorAction Stop
+                    $services = @(
+                        Get-CimInstance -ClassName Win32_Service `
+                            -ComputerName $computer `
+                            -Filter "StartMode='Auto' AND State='Stopped'" `
+                            -ErrorAction Stop
+                    )
                 }
 
                 [PSCustomObject]@{
                     ComputerName = $computer
                     QueryStatus  = 'Success'
                     ErrorMessage = $null
-                    ServiceCount = if ($services) { $services.Count } else { 0 }
+                    ServiceCount = $services.Count
                     Services     = $services
                     Timestamp    = (Get-Date)
                 }
