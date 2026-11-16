@@ -132,10 +132,13 @@ function Export-ServiceAuditReport {
         $timestamp = Get-Date -Format "yyyyMMdd_HHmmss_fffffff"
         
         $exportCsvParams = @{
-            NoTypeInformation = $true
             Encoding          = 'utf8'
             NoClobber         = $true
             ErrorAction       = 'Stop'
+        }
+
+        if ($PSVersionTable.PSVersion.Major -lt 6) {
+            $exportCsvParams['NoTypeInformation'] = $true
         }
 
         # 1. Export Findings CSV (Clean, direct header-only schema generation via custom PSObject typing)
