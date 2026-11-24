@@ -16,7 +16,7 @@ function Get-StoppedAutomaticService {
             Write-Verbose "Querying CIM services on '$computer'..."
 
             try {
-                if ($computer -eq 'localhost' -eq $true -or $computer -eq '.' -or $computer -eq $env:COMPUTERNAME) {
+                if ($computer -in @('localhost', '.', $env:COMPUTERNAME)) {
                     $services = @(
                         Get-CimInstance -ClassName Win32_Service `
                             -Filter "StartMode='Auto' AND State='Stopped'" `
