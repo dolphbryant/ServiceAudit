@@ -51,6 +51,25 @@ Describe "Enterprise Service Audit Tool - Pester v5 Suite" {
             $results[2].QueryStatus  | Should -Be 'Success'
             $results[2].ServiceCount | Should -Be 0
         }
+
+        It "Should query local alias '<Computer>' without remote CIM transport" -ForEach @(
+            @{ Computer = 'localhost' }
+            @{ Computer = '.' }
+            @{ Computer = $env:COMPUTERNAME }
+        ) {
+            Mock Get-CimInstance { }
+
+            $result = Get-StoppedAutomaticService -ComputerName $Computer
+
+            $result.QueryStatus | Should -Be 'Success'
+            $result.ServiceCount | Should -Be 0
+
+            Should -Invoke Get-CimInstance -Times 1 -Exactly `
+                -ParameterFilter {
+                    -not $PSBoundParameters.ContainsKey('ComputerName')
+                }
+        }
+
     }
 
     Context "Export-ServiceAuditReport (Reporting, Schema & Collision Integrity)" {
