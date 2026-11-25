@@ -2,7 +2,7 @@ Describe "Enterprise Service Audit Tool - Pester v5 Suite" {
     BeforeAll {
         # Ensure functions are loaded into the test session context
         # (In practice, dot-source your script file here: . "$PSScriptRoot\ServiceAudit.ps1")
-        . "$PSScriptRoot\ServiceAudit.ps1"
+        . "$PSScriptRoot\..\ServiceAudit.ps1"
         $script:MockStaticDate = [datetime]"2026-11-13 12:00:00.1234567"
     }
 

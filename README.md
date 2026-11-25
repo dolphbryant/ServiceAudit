@@ -31,7 +31,8 @@ ServiceAudit supports local and remote Windows computers, pipeline input, struct
 ```text
 ServiceAudit/
 ├── Get-StoppedAutomaticServices.ps1
-├── ServiceAudit.Tests.ps1
+├── Tests/
+│   └── ServiceAudit.Tests.ps1
 └── README.md
 ```
 
@@ -167,7 +168,7 @@ Install-Module Pester -MinimumVersion 5.0 -Scope CurrentUser
 Run the tests from the project directory:
 
 ```powershell
-Invoke-Pester -Path .\ServiceAudit.Tests.ps1 -Output Detailed
+Invoke-Pester -Path .\Tests -Output Detailed
 ```
 
 The current suite tests:
@@ -186,7 +187,7 @@ The initial local validation produced the following results:
 | Local CIM service enumeration | Passed |
 | CSV export and import | Passed |
 | Mixed successful and failed queries | Passed |
-| Pester automated tests | 4 passed, 0 failed |
+| Pester automated tests | All tests passing |
 
 These results establish a working baseline for the tested scenarios, not comprehensive verification of every possible environment or failure condition.
 
