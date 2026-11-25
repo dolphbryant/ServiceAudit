@@ -1,0 +1,8 @@
+# Pester-generated reports
+coverage.xml
+TestResults.xml
+
+# Generated service audit reports
+StoppedAutomaticServices_*.csv
+ServiceAuditFailures_*.csv
+ServiceAuditSummary_*.csv
